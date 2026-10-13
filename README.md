@@ -62,7 +62,7 @@ python main.py
 
 O arquivo `challenge.xlsx` deve estar disponível na pasta do projeto para que o programa possa ler os dados.
 
-O teste será considerado bem-sucedido, quando o desafio for concluído os resultados da automação serão exibidos na **página do site** e no **terminal**.
+Quando o desafio for concluído, os resultados da automação serão exibidos na **página do site** e no **terminal**.
 
 
 
