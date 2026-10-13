@@ -31,23 +31,38 @@ Esse projeto cumpre um desafio de preenchimento de formulário automático, do s
 
 **Pré-requisitos:** Python 3.11 ou compatível e **Google Chrome** instalado.
 
-1. Clone o repositório e acesse a pasta do projeto.
-2. Crie e ative um ambiente virtual.
-3. Instale as dependências:
+### Passo a passo
 
-   ```bash
-   python -m pip install -r requirements.txt
-   ```
+1. Clone o repositório e entre na pasta do projeto:
+```
+git clone URL_DO_REPOSITORIO
+cd NOME_DO_PROJETO
+```
 
-4. Execute o programa:
+2. Crie um ambiente virtual:
+```
+python -m venv .venv
+```
 
-   ```bash
-   python main.py
-   ```
+3. Ative o ambiente virtual no Windows:
+
+```
+.venv\Scripts\activate
+```
+
+4. Instale as dependências:
+```
+python -m pip install -r requirements.txt
+```
+
+5. Execute o programa:
+```
+python main.py
+```
 
 O arquivo `challenge.xlsx` deve estar disponível na pasta do projeto para que o programa possa ler os dados.
 
-O teste será considerado bem-sucedido, quando o desafio for concluído e os resultados da automação forem exibidos na página e no terminal.
+O teste será considerado bem-sucedido, quando o desafio for concluído os resultados da automação serão exibidos na **página do site** e no **terminal**.
 
 
 
