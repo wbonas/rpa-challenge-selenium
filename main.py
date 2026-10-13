@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from time import sleep 
 import pandas as pd
 
 URL    = "https://www.rpachallenge.com/?lang=EN"
@@ -41,6 +42,6 @@ for i, email in enumerate(tabela["Email"]):
 
     navegador.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
 
-from time import sleep
+
 sleep(5)
 navegador.quit()
