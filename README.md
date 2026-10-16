@@ -90,6 +90,6 @@ O mesmo problema se repetiu para a seleção dos botões de **START** e **SUBMIT
 
 ## ⏭️ Próximos passos
 
-- [ ] Organizar o mapeamento dos **locators**.
+- [x] Organizar o código com **função reutilizável**.
 - [ ] Adicionar esperas explicitas com **WebDriveWait** no lugar da função **sleep**.
 - [ ] Adicionar tratamento de erros **try/except/finally**.

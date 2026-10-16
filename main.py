@@ -1,47 +1,49 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from time import sleep 
+from time import sleep
 import pandas as pd
 
-URL    = "https://www.rpachallenge.com/?lang=EN"
-tabela = pd.read_excel("challenge.xlsx")
+def preencher_campos_x(driver:webdriver, selectors:dict, dataframe:pd):
+    """_summary_
 
-# Programa Principal
+    Args:
+        driver (webdriver): Recebe o navegador usado no projeto.
+        selectors (dict): Recebe um dicionário com o nome das colunas(keys) e os valores(values) com XPATH do site. 
+        dataframe (pandas): Recebe o arquivo Excel.
+
+    Returns:
+        None
+    """
+    for i in range(dataframe.shape[0]):
+        print(f'--> \033[1mUser index\033[m: {i}')
+        for c in selectors:
+            print(f"{c:<15} | {dataframe[c][i]:<25} | {selectors[c]}")
+            driver.find_element(By.XPATH, f'{selectors[c]}').send_keys(str(dataframe[c][i]))
+        driver.find_element(By.CSS_SELECTOR, 'input[type="submit"]').click() # SUBMIT / ENVIAR
+        print()
+    return None
+
+
+URL    = "https://www.rpachallenge.com/?lang=EN"
+TABELA = pd.read_excel('challenge.xlsx')
+CAMPOS = { # campos a serem preenchidos + locators/Seletores
+    'Email'              :'//*[@ng-reflect-name="labelEmail"]',
+    'First Name'         :'//*[@ng-reflect-name="labelFirstName"]',
+    'Last Name'          :'//*[@ng-reflect-name="labelLastName"]',
+    'Role in Company'    :'//*[@ng-reflect-name="labelRole"]',
+    'Company Name'       :'//*[@ng-reflect-name="labelCompanyName"]',
+    'Phone Number'       :'//*[@ng-reflect-name="labelPhone"]',
+    'Address'            :'//*[@ng-reflect-name="labelAddress"]'
+}
+
+
+### Programa Principal 
 navegador = webdriver.Chrome()
 navegador.get(URL)
 navegador.maximize_window()
-navegador.find_element(By.XPATH, "//*[@class='waves-effect col s12 m12 l12 btn-large uiColorButton']").click()
+navegador.find_element(By.XPATH, "//*[@class='waves-effect col s12 m12 l12 btn-large uiColorButton']").click() # START / COMEÇAR
 
-# Preenchimento automatico do formulário
-for i, email in enumerate(tabela["Email"]):
-    
-    # Email
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelEmail"]').send_keys(email)
+preencher_campos_x(driver=navegador , selectors=CAMPOS, dataframe=TABELA)
 
-    # First name - Primeiro nome
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelFirstName"]').send_keys(f"{tabela.loc[i]["First Name"]}")
-
-    # Last name - Sobrenome
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelLastName"]').send_keys(f"{tabela.loc[i]["Last Name "]}")
-
-    # Role in the company - Papel na compania
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelRole"]').send_keys(f"{tabela.loc[i]["Role in Company"]}")
-
-    # Company name - Nome da compania
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelCompanyName"]').send_keys(f"{tabela.loc[i]["Company Name"]}")
-
-    # Phone number - Número de telefone
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelPhone"]').send_keys(f"{tabela.loc[i]["Phone Number"]}")
-
-    # Address - endereço
-    navegador.find_element(By.XPATH, '//*[@ng-reflect-name="labelAddress"]').send_keys(f"{tabela.loc[i]["Address"]}")
-
-    print(f"{i+1:<2} {email:<24} | {tabela.loc[i]["First Name"]:<10}{tabela.loc[i]["Last Name "]:<10}"
-          f"| {tabela.loc[i]["Company Name"]:<13} | {tabela.loc[i]["Role in Company"]:<16}"
-          f"| {tabela.loc[i]["Address"]:<22} | {tabela.loc[i]["Phone Number"]}")
-
-    navegador.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
-
-
-sleep(5)
+sleep(5) 
 navegador.quit()
